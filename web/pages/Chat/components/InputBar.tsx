@@ -1,6 +1,7 @@
-import { ImagePlus, PlusCircle, Send } from 'lucide-solid'
+import { ChevronUp, ImagePlus, PlusCircle, Send } from 'lucide-solid'
 import { Component, createSignal, JSX, Show } from 'solid-js'
 import { AppSchema } from '../../../../srv/db/schema'
+import Button from '../../../shared/Button'
 import { chatStore, toastStore, userStore } from '../../../store'
 import { msgStore } from '../../../store'
 import './Message.css'
@@ -43,14 +44,14 @@ const InputBar: Component<{
   }
 
   return (
-    <div class="flex items-center justify-center gap-2 max-sm:pb-0">
+    <div class="flex items-center justify-center max-sm:pb-0">
       <Show when={user.ui.input === 'single'}>
         <input
           spellcheck
           ref={ref}
           type="text"
           placeholder="Send a message..."
-          class="focusable-field w-full rounded-xl px-4 py-2"
+          class="focusable-field w-full rounded-xl rounded-r-none px-4 py-2"
           onKeyDown={updateText}
           onKeyUp={(ev) => ev.key === 'Enter' && send()}
         />
@@ -71,16 +72,14 @@ const InputBar: Component<{
           }}
         />
       </Show>
-      {/* <IconButton onClick={createImage}>
-        <ImagePlus />
-      </IconButton> */}
-      <Show when={!!state.lastMsg?.characterId && props.chat.userId === user.user?._id}>
+      <Dropup />
+      {/* <Show when={!!state.lastMsg?.characterId && props.chat.userId === user.user?._id}>
         <IconButton onClick={() => props.more(state.lastMsg.msg)}>
           <PlusCircle />
         </IconButton>
-      </Show>
+      </Show> */}
       <IconButton onClick={send}>
-        <Send size={20} />
+        <Send size={18} />
       </IconButton>
     </div>
   )
@@ -103,3 +102,26 @@ const IconButton: Component<{
 )
 
 export default InputBar
+
+const Dropup: Component<{}> = (props) => {
+  const [show, setShow] = createSignal(false)
+
+  return (
+    <div class="relative">
+      <button
+        onClick={() => setShow(!show())}
+        class="rounded-l-none rounded-r-md border-l border-[var(--bg-700)] bg-[var(--bg-800)] py-2 px-2 hover:bg-[var(--bg-700)]"
+      >
+        <ChevronUp />
+      </button>
+      <Show when={show()}>
+        <div class="absolute bottom-11 z-10 w-36 rounded-md bg-[var(--bg-700)]">
+          <p>TESTING</p>
+          <p>TESTING</p>
+          <p>TESTING</p>
+          <p>TESTING</p>
+        </div>
+      </Show>
+    </div>
+  )
+}
