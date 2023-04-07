@@ -15,7 +15,7 @@
     "build:server": "tsc -p srv.tsconfig.json",
     "build:server:watch": "tsc -p srv.tsconfig.json -w",
     "format": "prettier --check \"web/**/*.tsx\" \"web/**/*.ts\" \"web/**/*.css\" \"web/**/*.html\" && prettier --check \"srv/**/*.ts\"",
-    "format:fix": "prettier web --write && prettier srv --write",
+    "format:fix": "prettier \"web/**/*.tsx\" \"web/**/*.ts\" \"web/**/*.css\" \"web/**/*.html\" --write && prettier \"srv/**/*.ts\" --write",
     "model": "python -m flask --app model/app.py run --host 0.0.0.0 -p 5001",
     "model:watch": "nodemon -e py --watch model --exec \"python -m flask --app model/app.py run --host 0.0.0.0 -p 5001\"",
     "server": "node srv/start.js",
