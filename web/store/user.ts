@@ -52,6 +52,7 @@ export type UserState = {
   loading: boolean
   error?: string
   loggedIn: boolean
+  isPastPolicyGate?: boolean
   jwt: string
   profile?: AppSchema.Profile
   user?: AppSchema.User
@@ -265,6 +266,7 @@ function init(): UserState {
       loading: false,
       jwt: '',
       loggedIn: false,
+      isPastPolicyGate: false,
       ui,
       background,
       oaiUsageLoading: false,
@@ -276,6 +278,7 @@ function init(): UserState {
     loggedIn: true,
     loading: false,
     jwt: existing,
+    isPastPolicyGate: false,
     ui,
     background,
     oaiUsageLoading: false,
